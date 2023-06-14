@@ -6,4 +6,4 @@ from .models import Proposal
 class ProposalSerializer(serializers.ModelSerializer):
     class Meta:
         model = Proposal
-        fields = ['id', 'name', 'value']
+        fields = ['id', 'name', 'value', 'status']

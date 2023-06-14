@@ -16,9 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from proposals.views import ProposalCreateView
+from proposals.views import ProposalCreateView, ProposalDetailView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/proposals/', ProposalCreateView.as_view(), name='proposal-create'),
+    path('api/proposals/<int:pk>/', ProposalDetailView.as_view(), name='proposal-detail'),
 ]
