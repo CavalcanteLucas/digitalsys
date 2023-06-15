@@ -1,19 +1,18 @@
-# views.py
-
-from rest_framework import status
-from rest_framework.response import Response
 from rest_framework.generics import RetrieveAPIView, CreateAPIView
-from .serializers import ProposalSerializer
+
+from proposals.serializers import ProposalSerializer
 from proposals.models import Proposal
+from proposals.tasks import update_proposal_status
+
 
 class ProposalCreateView(CreateAPIView):
     queryset = Proposal.objects.all()
     serializer_class = ProposalSerializer
 
-    def create(self, request, *args, **kwargs):
-        response = super().create(request, *args, **kwargs)
-        proposal = response.data
-        return Response({'id': proposal['id']}, status=status.HTTP_201_CREATED)
+    def perform_create(self, serializer):
+        proposal = serializer.save()
+        update_proposal_status.delay(proposal.id)
+
 
 class ProposalDetailView(RetrieveAPIView):
     queryset = Proposal.objects.all()

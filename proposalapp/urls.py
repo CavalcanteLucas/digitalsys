@@ -20,6 +20,12 @@ from proposals.views import ProposalCreateView, ProposalDetailView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/proposals/', ProposalCreateView.as_view(), name='proposal-create'),
-    path('api/proposals/<int:pk>/', ProposalDetailView.as_view(), name='proposal-detail'),
+    path(
+        'api/proposals/', ProposalCreateView.as_view(), name='proposal-create'
+    ),
+    path(
+        'api/proposals/<int:pk>/',
+        ProposalDetailView.as_view(),
+        name='proposal-detail',
+    ),
 ]

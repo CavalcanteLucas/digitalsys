@@ -16,12 +16,6 @@ services:
       - db
     volumes:
       - .:/code
-    environment:
-      - DB_HOST=db
-      - DB_PORT=5433
-      - DB_NAME=postgres
-      - DB_USER=postgres
-      - DB_PASSWORD=password
 
   db:
     image: postgres:14.1-alpine
@@ -37,14 +31,25 @@ services:
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 2s
-      timeout: 5s
-      retries: 5
+      timeout: 3s
+      retries: 3
 
   rabbitmq:
     image: rabbitmq:3-management
     ports:
       - "15672:15672"
       - "5672:5672"
+
+  celery:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: celery -A proposalapp worker --loglevel=info
+    depends_on:
+      - web
+      - rabbitmq
+    volumes:
+      - .:/code
 
 
 volumes:
