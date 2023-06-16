@@ -6,6 +6,7 @@ from proposals.serializers import ProposalSerializer
 from proposals.models import Proposal
 from proposals.tasks import update_proposal_status
 
+
 class ProposalCreateView(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'proposal_create.html'
