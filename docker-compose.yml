@@ -1,6 +1,7 @@
 version: '3.9'
 services:
   web:
+    container_name: digitalsys-web
     build:
       context: .
       dockerfile: Dockerfile
@@ -20,6 +21,7 @@ services:
       - DB_HOST=db
 
   db:
+    container_name: digitalsys-db
     image: postgres:14.1-alpine
     environment:
       - POSTGRES_DB=postgres
@@ -37,12 +39,14 @@ services:
       retries: 3
 
   rabbitmq:
+    container_name: digitalsys-rabbitmq
     image: rabbitmq:3-management
     ports:
       - "15672:15672"
       - "5672:5672"
 
   celery:
+    container_name: digitalsys-celery
     build:
       context: .
       dockerfile: Dockerfile
