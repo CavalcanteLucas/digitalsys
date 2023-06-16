@@ -6,4 +6,4 @@ from proposals.models import Proposal
 class ProposalSerializer(serializers.ModelSerializer):
     class Meta:
         model = Proposal
-        fields = ['id', 'name', 'value', 'status']
+        fields = '__all__'

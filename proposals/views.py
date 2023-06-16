@@ -1,19 +1,23 @@
-from rest_framework.generics import RetrieveAPIView, CreateAPIView
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.renderers import TemplateHTMLRenderer
 
 from proposals.serializers import ProposalSerializer
 from proposals.models import Proposal
 from proposals.tasks import update_proposal_status
 
+class ProposalCreateView(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'proposal_create.html'
 
-class ProposalCreateView(CreateAPIView):
-    queryset = Proposal.objects.all()
-    serializer_class = ProposalSerializer
+    def get(self, request):
+        serializer = ProposalSerializer()
+        return Response({'serializer': serializer})
 
-    def perform_create(self, serializer):
-        proposal = serializer.save()
-        update_proposal_status.delay(proposal.id)
-
-
-class ProposalDetailView(RetrieveAPIView):
-    queryset = Proposal.objects.all()
-    serializer_class = ProposalSerializer
+    def post(self, request):
+        serializer = ProposalSerializer(data=request.data)
+        if serializer.is_valid():
+            proposal = serializer.save()
+            update_proposal_status.delay(proposal.id)
+            return Response({'success': True})
+        return Response({'serializer': serializer})
