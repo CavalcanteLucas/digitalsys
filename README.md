@@ -19,7 +19,7 @@ make up
 
 A aplicação estará disponível em `http://localhost:8000/`.
 
-Por conveniência e para efeitos de demonstração, o comando abaixo cria um super usuário e ter acesso ao painel administrativo do Django. Em um novo terminal, com a aplicação rodando, execute:
+Por conveniência e para efeitos de demonstração, o comando abaixo cria um super usuário com acesso ao painel administrativo do Django. Em um novo terminal, com a aplicação rodando, execute:
 ```
 make createadmin
 ```
