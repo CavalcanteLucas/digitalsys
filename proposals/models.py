@@ -3,7 +3,6 @@ from cpf_field.models import CPFField
 
 
 class Proposal(models.Model):
-
     class StatusChoices(models.TextChoices):
         APPROVED = 'approved', 'Aprovado'
         REFUSED = 'refused', 'Recusado'

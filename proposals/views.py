@@ -3,7 +3,6 @@ from rest_framework.response import Response
 from rest_framework.renderers import TemplateHTMLRenderer
 
 from proposals.serializers import ProposalSerializer
-from proposals.models import Proposal
 from proposals.tasks import update_proposal_status
 
 
