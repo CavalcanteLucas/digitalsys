@@ -1,4 +1,4 @@
-# Digitalsys - Desafio Técnico
+# DigitalSys - Desafio Técnico
 
 ## Descrição
 
